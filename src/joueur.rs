@@ -12,8 +12,7 @@ pub enum JoueurError {
 // Représente un joueur
 pub struct Joueur {
     // numéro de licence
-    #[serde(rename = "licence")]
-    pub _licence: String,
+    pub licence: String,
     pub nom: String,
     pub prenom: String,
     // ses points de début de saison

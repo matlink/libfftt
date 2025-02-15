@@ -13,7 +13,7 @@ mod tests {
             .expect("Erreur lors de la récupération du joueur");
         assert_eq!(joueur.nom, "LEBRUN");
         assert_eq!(joueur.prenom, "Felix");
-        assert_eq!(joueur._licence, "3421810");
+        assert_eq!(joueur.licence, "3421810");
     }
 
     #[tokio::test]
