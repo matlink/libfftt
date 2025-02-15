@@ -2,7 +2,7 @@ use std::mem;
 
 use serde::Deserialize;
 
-use crate::API;
+use crate::{joueur::Joueur, API};
 
 #[derive(Debug, Deserialize, Clone)]
 // un club de tennis de table
@@ -51,12 +51,53 @@ impl Club {
             villesalle: club.villesalle.clone(),
         }
     }
-}
 
+    // récupère l'ensemble des joueurs du club donné en argument
+    pub async fn api_joueurs(&self) -> Vec<Joueur> {
+        log::info!("Récupération des joueurs du club...");
+        let request_url = format!("{API}/proxy/xml_licence_b.php?club={}", self.numero);
+        let response = reqwest::get(&request_url)
+            .await
+            .expect("Impossible de récupérer la liste des joueurs du club")
+            .text()
+            .await
+            .expect("Impossible de récupérer la liste des joueurs du club");
+        // la réponse est en xml
+        log::info!("Traitement de la réponse...");
+        let doc: Document = quick_xml::de::from_str(&response)
+            .expect("Erreur lors de la désérialisation des joueurs");
+
+        // on initialise tous les joueurs
+        log::info!("Initialisation des joueurs...");
+        let mut joueurs = vec![];
+        for x in &doc.licence {
+            if let Ok(j) = Joueur::new(&x.licence).await {
+                joueurs.push(j);
+            }
+        }
+        joueurs
+    }
+}
 
 #[derive(Debug, Deserialize)]
 // représente le document XML retourné par l'API
 struct DocumentClub {
     // l'ensemble des licences de tous les joueurs
     club: Vec<Club>,
+}
+
+#[derive(Debug, Deserialize)]
+// représente le document XML retourné par l'API
+struct Document {
+    // l'ensemble des licences de tous les joueurs
+    licence: Vec<Licence>,
+}
+
+#[derive(Debug, Deserialize)]
+// un joueur
+struct Licence {
+    // le numéro de licence
+    licence: String,
+    // son prénom
+    // prenom: String,
 }

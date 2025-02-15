@@ -21,4 +21,14 @@ mod tests {
         let club = Club::new("11340010").await;
         assert_eq!(club.nom, "MONTPELLIER TT");
     }
+
+    #[tokio::test]
+    async fn test_club_joueurs() {
+        let club = Club::new("11340010").await;
+        assert_eq!(club.nom, "MONTPELLIER TT");
+        let joueurs = club.api_joueurs().await;
+        assert!(joueurs
+            .iter()
+            .any(|j| j.nom == "LEBRUN" && j.prenom == "Felix"));
+    }
 }
