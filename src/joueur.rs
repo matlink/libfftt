@@ -29,7 +29,7 @@ impl Joueur {
     // créé le joueur en récupérant les données depuis SPID
     // licence représente le numéro de licence du joueur
     pub async fn new(licence: &str) -> Result<Joueur, JoueurError> {
-        let mut j = Self::api_joueur(licence).await.map_err(|e| {
+        let j = Self::api_joueur(licence).await.map_err(|e| {
             log::error!("Erreur de récupération du joueur N°{licence} : {e}");
             JoueurError::NotFound
         })?;
