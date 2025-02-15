@@ -1,5 +1,7 @@
 use serde::Deserialize;
 
+use crate::API;
+
 #[derive(Debug)]
 pub enum JoueurError {
     NotFound,
@@ -23,8 +25,6 @@ pub struct Joueur {
     #[serde(rename = "virtual")]
     pub r#_virtual: f32,
 }
-
-const API: &str = "http://fftt.dafunker.com/v1";
 
 impl Joueur {
     // créé le joueur en récupérant les données depuis SPID
