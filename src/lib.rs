@@ -1,5 +1,5 @@
-mod club;
-mod joueur;
+pub mod club;
+pub mod joueur;
 pub const API: &str = "http://fftt.dafunker.com/v1";
 
 #[cfg(test)]
