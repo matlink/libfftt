@@ -2,7 +2,7 @@ use std::mem;
 
 use serde::Deserialize;
 
-use crate::{joueur::Joueur, API};
+use crate::{equipe::Equipe, joueur::Joueur, API};
 
 #[derive(Debug, Deserialize, Clone)]
 // un club de tennis de table
@@ -76,6 +76,21 @@ impl Club {
             }
         }
         joueurs
+    }
+
+    // récupère les équipes du club
+    pub async fn api_equipes(&self) -> Vec<Equipe> {
+        log::info!("Récupération des équipes du club...");
+        let request_url = format!("{API}/club/{}/equipes", self.numero);
+        let response = reqwest::get(&request_url)
+            .await
+            .expect("Impossible de récupérer la liste des équipes du club")
+            .text()
+            .await
+            .expect("Impossible de récupérer la liste des équipes du club");
+        // la réponse est en json
+        log::info!("Traitement de la réponse...");
+        serde_json::from_str(&response).expect("Erreur lors du parsing des équipes du club")
     }
 }
 
