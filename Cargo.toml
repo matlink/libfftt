@@ -1,9 +1,10 @@
 [package]
 name = "libfftt"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.22"
 log = "0.4.25"
 quick-xml = { version = "0.37.2", features = ["serde", "serialize"] }
 reqwest = "0.12.12"

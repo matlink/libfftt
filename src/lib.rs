@@ -1,8 +1,16 @@
 pub mod club;
+pub mod date;
 pub mod equipe;
 pub mod joueur;
+pub mod journee;
+pub mod partie;
 pub mod poule;
+pub mod tour;
 pub const API: &str = "http://fftt.dafunker.com/v1";
+pub const MISAISON_MOIS: u8 = 1;
+pub const MISAISON_JOUR: u8 = 11;
+pub const DEBSAISON_MOIS: u8 = 9;
+pub const DEBSAISON_JOUR: u8 = 1;
 
 #[cfg(test)]
 mod tests {
