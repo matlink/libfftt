@@ -5,23 +5,32 @@ use serde::Deserialize;
 use crate::{equipe::Equipe, joueur::Joueur, API};
 
 #[derive(Debug, Deserialize, Clone)]
-// un club de tennis de table
+/// un club de tennis de table
 pub struct Club {
-    // le numéro du club
+    /// le numéro identifiant le club. Commence généralement par le numéro de département
     pub numero: String,
+    /// Le nom du club
     pub nom: String,
+    /// Le nom de la salle accueillant les compétitions
     pub nomsalle: String,
+    /// L'adresse de la 1ère salle de compétition
     pub adressesalle1: String,
+    /// L'adresse de la 2ème salle de compétition
     pub adressesalle2: String,
+    /// L'adresse de la 3ème salle de compétition
     pub adressesalle3: String,
+    /// Le code postal de la salle
     pub codepsalle: String,
+    /// La ville de la salle
     pub villesalle: String,
+    /// La latitude de la position GPS de la salle
     pub latitude: String,
+    /// La longitude de la position GPS de la salle
     pub longitude: String,
 }
 
 impl Club {
-    // créé le club en interrogeant l'API avec l'id donné
+    /// Créé le club en interrogeant l'API avec l'id donné
     pub async fn new(idclub: &str) -> Club {
         let request_url = format!("{API}/proxy/xml_club_detail.php?club={idclub}");
         let response = reqwest::get(&request_url)
@@ -52,7 +61,7 @@ impl Club {
         }
     }
 
-    // récupère l'ensemble des joueurs du club donné en argument
+    /// Retourne l'ensemble des joueurs du club en interrogeant l'API
     pub async fn api_joueurs(&self) -> Vec<Joueur> {
         log::info!("Récupération des joueurs du club...");
         let request_url = format!("{API}/proxy/xml_licence_b.php?club={}", self.numero);
@@ -78,7 +87,7 @@ impl Club {
         joueurs
     }
 
-    // récupère les équipes du club
+    /// Retourne les équipes du club engagées en compétition en interrogeant l'API
     pub async fn api_equipes(&self) -> Vec<Equipe> {
         log::info!("Récupération des équipes du club...");
         let request_url = format!("{API}/club/{}/equipes", self.numero);

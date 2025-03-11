@@ -8,20 +8,27 @@ use crate::date::Date;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Rencontre {
     #[serde(rename = "libelle", deserialize_with = "deserialize_numero_tour")]
+    /// le tour de la rencontre
     pub tour: u8,
     #[serde(rename = "equa")]
+    /// l'équipe A (receveur)
     pub a: String,
     #[serde(rename = "equb")]
+    /// l'équipe B (extérieur)
     pub b: String,
     #[serde(default)]
+    /// le score de l'équipe A
     pub scorea: String,
     #[serde(default)]
+    /// le score de l'équipe B
     pub scoreb: String,
     #[serde(rename = "dateprevue")]
+    /// la date de la rencontre
     pub date: Date,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
+/// un ensemble de rencontres
 pub struct Rencontres {
     #[serde(rename = "tour")]
     pub rencontres: Vec<Rencontre>,

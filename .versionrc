@@ -26,7 +26,8 @@
         },
         {
             "type": "docs",
-            "hidden": true
+            "section": "Docs",
+            "hidden": false
         },
         {
             "type": "style",

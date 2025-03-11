@@ -15,6 +15,7 @@ pub struct Date {
 impl FromStr for Date {
     type Err = ();
 
+    /// Crée une date à partir de la chaîne au format JJ/MM/AA
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let splitted: Vec<&str> = s.split('/').collect();
         Ok(Date {
@@ -85,6 +86,7 @@ impl Date {
     pub fn new(annee: u16, mois: u8, jour: u8) -> Date {
         Date { annee, mois, jour }
     }
+    /// Retourne la date d'aujourd'hui
     pub fn now() -> Date {
         let now = Local::now();
         Date {
@@ -94,6 +96,7 @@ impl Date {
         }
     }
 
+    /// Retourne si la date appartient à la phase 2
     pub fn phase2(&self) -> bool {
         // entre février et août
         (MISAISON_MOIS < self.mois && self.mois < DEBSAISON_MOIS)

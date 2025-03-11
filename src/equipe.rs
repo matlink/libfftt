@@ -3,25 +3,25 @@ use serde::{Deserialize, Deserializer};
 use crate::poule::Poule;
 
 #[derive(Debug, Deserialize, Clone)]
-// une équipe engagée en compétition
+/// une équipe engagée en compétition
 pub struct Equipe {
-    // numéro du club
+    /// numéro de l'équipe
     #[serde(rename = "idequipe")]
     pub id: String,
 
-    // nom de l'équipe
+    /// nom de l'équipe
     #[serde(rename = "libequipe")]
     pub nom: String,
 
-    // libellé de l'épreuve
+    /// libellé de l'épreuve
     #[serde(rename = "libepr")]
     pub _epreuve: String,
 
-    // nom de la division
+    /// nom de la division
     #[serde(rename = "libdivision")]
     pub _division: String,
 
-    // poule
+    /// poule de l'équipe
     #[serde(rename = "liendivision", deserialize_with = "deserialize_poule")]
     pub poule: Poule,
 }

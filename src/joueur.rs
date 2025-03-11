@@ -11,11 +11,13 @@ pub enum JoueurError {
 }
 
 #[derive(Debug, Deserialize, Clone)]
-// Représente un joueur
+/// Représente un joueur
 pub struct Joueur {
-    // numéro de licence
+    /// numéro de licence
     pub licence: String,
+    /// nom du joueur
     pub nom: String,
+    /// prénom du joueur
     pub prenom: String,
     // ses points de début de saison
     #[serde(rename = "initm")]
@@ -28,8 +30,8 @@ pub struct Joueur {
 }
 
 impl Joueur {
-    // créé le joueur en récupérant les données depuis SPID
-    // licence représente le numéro de licence du joueur
+    /// créé le joueur en récupérant les données depuis SPID
+    /// licence représente le numéro de licence du joueur
     pub async fn new(licence: &str) -> Result<Joueur, JoueurError> {
         let j = Self::api_joueur(licence).await.map_err(|e| {
             log::error!("Erreur de récupération du joueur N°{licence} : {e}");
@@ -44,7 +46,7 @@ impl Joueur {
         format!("{} {}", self.prenom, self.nom)
     }
 
-    // récupère un joueur via l'API
+    /// récupère un joueur via l'API à partir de son numéro de licence
     async fn api_joueur(licence: &str) -> Result<Joueur, reqwest::Error> {
         let request_url = format!("{API}/joueur/{licence}");
         let response = reqwest::get(&request_url).await?;
@@ -54,7 +56,7 @@ impl Joueur {
         Ok(joueur)
     }
 
-    // récupère les parties d'un joueur
+    /// récupère les parties du joueur
     pub async fn api_parties(&self) -> Option<Partie> {
         let request_url = format!("{API}/parties/{}", self.licence);
         let response = match reqwest::get(&request_url).await {

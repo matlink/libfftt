@@ -4,19 +4,20 @@ use std::ops::Add;
 use crate::journee::Journee;
 
 #[derive(Clone, Default, Debug, Deserialize)]
-// une partie représente l'ensemble des rencontres d'une saison
+/// une partie représente l'ensemble des rencontres d'une saison
 pub struct Partie {
-    // le nombre de matchs validés
+    /// le nombre de matchs validés
     #[allow(dead_code)]
     processed: u8,
+    /// le nombre total de matchs effectués
     num_matchs: u8,
-    // les points gagnés sur ces matchs
+    /// les points gagnés sur ces matchs
     ex: f32,
-    // les rencontres
+    /// les rencontres
     pub journees: Vec<Journee>,
 }
 
-// la somme de 2 parties
+/// la somme de 2 parties
 impl Add for Partie {
     type Output = Partie;
     fn add(self, other: Partie) -> Self {
@@ -30,7 +31,7 @@ impl Add for Partie {
 }
 
 impl Partie {
-    // la somme d'un ensemble de parties
+    /// la somme d'un ensemble de parties
     pub fn sum_parties(parties: &[Partie]) -> Partie {
         parties.iter().fold(
             Partie {
@@ -43,7 +44,7 @@ impl Partie {
         )
     }
 
-    // regrouper les journées d'une partie
+    /// regroupe les journées d'une partie
     pub fn regrouper_journees(mut self) -> Option<Partie> {
         let mut journees: Vec<Journee> = Vec::new();
         self.journees.sort();

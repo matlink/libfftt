@@ -5,33 +5,33 @@ use std::ops::Add;
 use crate::date::Date;
 
 #[derive(Clone, Debug, Deserialize)]
-// une journée est une rencontre
+/// Une journée représente un ensemble de matchs à une date donnée
 pub struct Journee {
-    // la date de la rencontre
+    /// la date de la rencontre
     pub date: Date,
-    // l'ensemble des matchs individuels
+    /// l'ensemble des matchs individuels
     matchs: Vec<Match>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
-// représente une match individuel
+/// représente une match individuel
 pub struct Match {
-    // le nom de l'adversaire
-    // nom: String,
-    // le coefficient multiplicateur des points
-    // coeff: f32,
-    // les points gagnés (coefficient compris)
-    ex: f32,
+    /// le nom de l'adversaire
+    pub nom: String,
+    /// le coefficient multiplicateur des points
+    pub coeff: f32,
+    /// les points gagnés (coefficient compris)
+    pub ex: f32,
 }
 
 impl Journee {
-    // indique si une rencontre fait partie de l'année donnée
+    /// indique si une rencontre fait partie de l'année donnée
     pub fn est_saison(&self, annee: u16) -> bool {
         (self.date.annee == annee && self.date.mois >= 9)
             || (self.date.annee - 1 == annee && self.date.mois <= 6)
     }
 
-    // calcule les points obtenus durant une rencontre
+    /// calcule les points obtenus durant une rencontre
     pub fn ex(&self) -> f32 {
         self.matchs.iter().fold(0.0, |x, y| x + y.ex)
     }
