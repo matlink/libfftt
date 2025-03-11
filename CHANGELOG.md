@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.1](https://git.matlink.fr/matlink/libfftt/compare/v0.2.0...v0.2.1) (2025-03-11)
+
+
+### Docs
+
+* ajout de documentation ([17f8a13](https://git.matlink.fr/matlink/libfftt/commit/17f8a13aa1010f6a484e8e02a56bdd820ee5639e))
+
 ## 0.2.0 (2025-03-11)
 
 

@@ -1,6 +1,6 @@
 [package]
 name = "libfftt"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 license = "MIT"
 description = "Une bibliothèque Rust pour interagir avec l'API de la Fédération Française de Tennis de Table (FFTT), permettant d'accéder aux informations sur les joueurs, clubs, compétitions et classements."
